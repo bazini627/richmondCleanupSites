@@ -12,3 +12,5 @@
 
 ## Node Modules Used
 - [Mapshaper](https://www.npmjs.com/package/mapshaper)
+- [csv2geojson](https://www.npmjs.com/package/csv2geojson)
+- [chalk](https://www.npmjs.com/package/chalk)
