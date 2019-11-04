@@ -92,7 +92,7 @@
                     let coords = feature.geometry.coordinates,
                         marker = L.marker([coords[1], coords[0]]);
                     // bind a tooltip to the marker for site name
-                    marker.bindTooltip("Site Name: " + feature.properties['Site Name']);
+                    marker.bindTooltip("Site Name: " + feature.properties['SITE NAME']);
                     // add the marker to the markerClusterGroup
                     markers.addLayer(marker);
                 });
