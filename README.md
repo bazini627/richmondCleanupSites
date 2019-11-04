@@ -8,3 +8,6 @@
 ### Richmond Hazardous Waste Site Point Data
 - Data was downloaded from State of California [GeoTracker](https://geotracker.waterboards.ca.gov/map/?CMD=runreport&myaddress=Sacramento) website.  
 - Data points within a 30,000 foot radius of Richmond were downloaded via their web map as an Excel file. 
+
+## Node Modules Used
+- [Mapshaper](https://www.npmjs.com/package/mapshaper)
