@@ -46,7 +46,7 @@
             // Our map options
             const options = {
                 center: [37.949874, -122.348557],
-                zoom: 10
+                zoom: 12
             }
 
             // Our map object
@@ -92,7 +92,7 @@
                     let coords = feature.geometry.coordinates,
                         marker = L.marker([coords[1], coords[0]]);
                     // bind a tooltip to the marker for site name
-                    marker.bindTooltip("Site Name: " + feature.properties['SITE NAME']);
+                    marker.bindTooltip("Site Name: " + feature.properties['SITE NAME'] + '<br>' + 'Site Address: ' + feature.properties.ADDRESS + '<br>' + 'City : ' + feature.properties.CITY + '<br>' + 'Cleanup Status: ' + feature.properties.STATUS);
                     // add the marker to the markerClusterGroup
                     markers.addLayer(marker);
                 });
