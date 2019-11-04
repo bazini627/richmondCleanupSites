@@ -1,0 +1,19 @@
+{
+  "name": "richmondcleanupsites",
+  "version": "1.0.0",
+  "description": "project for creating map of hazardous waste cleanup sites in richmond ca",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bazini627/richmondCleanupSites.git"
+  },
+  "author": "Matthew Bacinskas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bazini627/richmondCleanupSites/issues"
+  },
+  "homepage": "https://github.com/bazini627/richmondCleanupSites#readme"
+}
