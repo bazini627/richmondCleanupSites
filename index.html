@@ -8,6 +8,9 @@
     <title>Hazaradous Waste Cleanup Sites In Richmond CA Neighborhoods</title>
     <!-- Latest Leaflet CSS-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+    <!-- Latests Leaflet Marker Cluster CSS -->
+    <link rel="stylesheet" href="libs/Leaflet.markercluster/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="libs/Leaflet.markercluster/MarkerCluster.css" />
 
     <style>
         body {
@@ -36,6 +39,8 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
             </script>
+        <!-- Latest Leaflet MarkerCluster Source -->
+        <script src="libs/Leaflet.markercluster/leaflet.markercluster.js"></script>
 
         <script>
             // Our map options
@@ -78,8 +83,21 @@
                     }
                 }).addTo(map);
 
-                // Load cleanup site point data
-                let cleanupPoints = L.geoJson(cleanupSites).addTo(map)
+                // Load cleanup site point data using Leaflet MarkerCluster
+                var markers = L.markerClusterGroup();
+
+                // Loop through all of our cleanup site features
+                cleanupSites.features.forEach((feature) => {
+                    // create a new leflet marker for each point
+                    let coords = feature.geometry.coordinates,
+                        marker = L.marker([coords[1], coords[0]]);
+                    // bind a tooltip to the marker for site name
+                    marker.bindTooltip("Site Name: " + feature.properties['Site Name']);
+                    // add the marker to the markerClusterGroup
+                    markers.addLayer(marker);
+                });
+                // add the markerCluserGroup to the map
+                map.addLayer(markers);
             }
         </script>
 </body>
