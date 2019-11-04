@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/bazini627/richmondCleanupSites/issues"
   },
-  "homepage": "https://github.com/bazini627/richmondCleanupSites#readme"
+  "homepage": "https://github.com/bazini627/richmondCleanupSites#readme",
+  "dependencies": {
+    "mapshaper": "^0.4.140"
+  }
 }
