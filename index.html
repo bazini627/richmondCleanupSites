@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Hazaradous Waste Cleanup Sites In Richmond CA Neighborhoods</title>
+    <!-- Latest Leaflet CSS-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map" div>
+
+        <!-- Latest D3 source -->
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <!-- Latest Leaflet Source -->
+        <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+        <!-- Latest JQuery Source -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+            </script>
+
+        <script>
+            // Our map options
+            const options = {
+                center: [37.949874, -122.348557],
+                zoom: 10
+            }
+
+            // Our map object
+            const map = L.map('map', options);
+
+            // Map base layer
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}' + (L.Browser.retina ? '@2x.png' :
+                '.png'), {
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd',
+                maxZoom: 20,
+                minZoom: 0
+            }).addTo(map);
+
+            // Use D3 fetch to request json files with async requests
+            const nabeData = d3.json('data/richmondNabes.json');
+            const cleanupSiteData = d3.json('data/activeCleanupSites.json');
+
+            // USe Promise to wait until data is all loaded
+            Promise.all([nabeData, cleanupSiteData]).then(loadMapData);
+
+            // Function to load map data that will get called when Promise is fulfilled and data is ready
+            function loadMapData(data) {
+
+                // Pull out the separate data arrays and assign them to a variabel
+                const nabes = data[0];
+                const cleanupSites = data[1];
+
+                // Convert our neighborhood geojson to a Leaflet L.geoJSON() object and add it to the map
+                let nabeLayerGroup = L.geoJson(nabes, {
+                    style: {
+                        color: 'red',
+                        fillOpacity: .8
+                    }
+                }).addTo(map);
+
+                // Load cleanup site point data
+                let cleanupPoints = L.geoJson(cleanupSites).addTo(map)
+            }
+        </script>
+</body>
+
+</html>
