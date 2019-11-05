@@ -78,7 +78,9 @@
                 // Convert our neighborhood geojson to a Leaflet L.geoJSON() object and add it to the map
                 let nabeLayerGroup = L.geoJson(nabes, {
                     style: {
-                        color: 'red',
+                        fill: false,
+                        color: 'white',
+                        weight: 1,
                         fillOpacity: .8
                     }
                 }).addTo(map);
