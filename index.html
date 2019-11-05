@@ -80,7 +80,7 @@
                 //Convert our neighborhood geojson to a Leaflet L.geoJSON() object and add it to the map
                 let nabeLayerGroup = L.geoJson(nabes, {
                     style: {
-                        fill: false,
+                        fillOpacity: 0,
                         color: 'white',
                         weight: .5,
                         opacity: .8
@@ -122,7 +122,7 @@
                 cleanupSites.features.forEach((feature) => {
                     // create a new leflet marker for each point
                     let coords = feature.geometry.coordinates,
-                        marker = L.marker([coords[1], coords[0]]);
+                        marker = L.circleMarker([coords[1], coords[0]]);
                     // bind a tooltip to the marker for site name
                     marker.bindTooltip("Site Name: " + feature.properties['SITE NAME'] + '<br>' + 'Site Address: ' + feature.properties.ADDRESS + '<br>' + 'City : ' + feature.properties.CITY + '<br>' + 'Cleanup Status: ' + feature.properties.STATUS);
                     // add the marker to the markerClusterGroup
