@@ -65,9 +65,10 @@
             const nabeData = d3.json('data/richmondNabes.json');
             const cleanupSiteData = d3.json('data/activeCleanupSites.json');
             const richmondCityLimitsData = d3.json('data/richmondCityLimits.json');
+            const colorsData = d3.json('/data/pastelColors.json');
 
             // USe Promise to wait until data is all loaded
-            Promise.all([nabeData, cleanupSiteData, richmondCityLimitsData]).then(loadMapData);
+            Promise.all([nabeData, cleanupSiteData, richmondCityLimitsData, colorsData]).then(loadMapData);
 
             // Function to load map data that will get called when Promise is fulfilled and data is ready
             function loadMapData(data) {
@@ -76,8 +77,9 @@
                 const nabes = data[0];
                 const cleanupSites = data[1];
                 const richmond = data[2];
+                const colors = data[3];
 
-                //Convert our neighborhood geojson to a Leaflet L.geoJSON() object and add it to the map
+                // Convert our neighborhood geojson to a Leaflet L.geoJSON() object and add it to the map
                 let nabeLayerGroup = L.geoJson(nabes, {
                     style: {
                         fillOpacity: 0,
@@ -105,6 +107,7 @@
                     }
                 }).addTo(map);
 
+                // Convert our city limit geojson to a Leaflet L.geoJSON() object and add it to the map
                 let cityLimitLayerGroup = L.geoJson(richmond, {
                     style: {
                         fill: false,
@@ -116,19 +119,34 @@
                 }).addTo(map);
 
                 // Load cleanup site point data using Leaflet MarkerCluster
-                var markers = L.markerClusterGroup();
+                const markers = L.markerClusterGroup();
 
-                var cleanupMarkerOptions = {
-                    radius: 5,
-                    fillColor: 'green',
-                    color: 'black',
-                    weight: 1,
-                    opacity: 1,
-                    fillOpacity: 0.8
-                };
+                // Color map object to style the cleanup markers
+                const cleanupSiteColorMap = {
+                    'OPEN - SITE ASSESSMENT': colors.Pastel[11][1],
+                    'OPEN - ACTIVE': colors.Pastel[11][2],
+                    'OPEN - REMEDIATION': colors.Pastel[11][3],
+                    'OPEN - VERIFICATION MONITORING': colors.Pastel[11][4],
+                    'ACTIVE': colors.Pastel[11][5],
+                    'OPEN - ASSESSMENT & INTERIM REMEDIAL ACTION': colors.Pastel[11][6],
+                    'OPEN - INACTIVE': colors.Pastel[11][7],
+                    'OPEN - ELIGIBLE FOR CLOSURE': colors.Pastel[11][8],
+                    'OPEN - REMEDIATION - LAND USE RESTRICTIONS': colors.Pastel[11][9],
+                    'OPEN - CLOSED / WITH MONITORING': colors.Pastel[11][10]
+                }
 
                 // Loop through all of our cleanup site features
                 cleanupSites.features.forEach((feature) => {
+
+                    // Style options for the markers
+                    const cleanupMarkerOptions = {
+                        radius: 5,
+                        fillColor: cleanupSiteColorMap[feature.properties.STATUS],
+                        color: 'black',
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.8
+                    };
                     // create a new leflet marker for each point
                     let coords = feature.geometry.coordinates,
                         marker = L.circleMarker([coords[1], coords[0]], cleanupMarkerOptions);
