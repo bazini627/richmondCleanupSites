@@ -19,13 +19,13 @@ const getColors = function extractColorFromJson() {
 
         // Assign the desired key:value pairs from the json to a variable
         const dataToOutput = {
-            'Pastel': data['Pastel']
+            'Pastel': colorData['Pastel']
         };
 
         console.log(chalk.cyan("Pastel color scheme has been extracted from the parsed data"));
 
         // Output the pastel color scheme to a json file
-        fs.writeFile(__dirname + '/..data/pastelColors.json', JSON.stringify(dataToOutput), 'utf-8', function (err) {
+        fs.writeFile(__dirname + '/../data/pastelColors.json', JSON.stringify(dataToOutput), 'utf-8', function (err) {
 
             if (err) throw err;
 
