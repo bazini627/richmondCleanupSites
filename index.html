@@ -84,10 +84,10 @@
                         color: 'white',
                         weight: .5,
                         opacity: .8
-                    }, 
+                    },
                     onEachFeature(feature, layer) {
                         // mouse over a polygon and highlight
-                        layer.on('mouseover', function() {
+                        layer.on('mouseover', function () {
                             // Highlight the polygon
                             this.setStyle({
                                 color: 'yellow',
@@ -96,7 +96,7 @@
                         });
 
                         // set back to base styling on mouseout
-                        layer.on('mouseout', function() {
+                        layer.on('mouseout', function () {
                             this.setStyle({
                                 color: 'white',
                                 weight: .5
@@ -118,11 +118,20 @@
                 // Load cleanup site point data using Leaflet MarkerCluster
                 var markers = L.markerClusterGroup();
 
+                var cleanupMarkerOptions = {
+                    radius: 5,
+                    fillColor: 'green',
+                    color: 'black',
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                };
+
                 // Loop through all of our cleanup site features
                 cleanupSites.features.forEach((feature) => {
                     // create a new leflet marker for each point
                     let coords = feature.geometry.coordinates,
-                        marker = L.circleMarker([coords[1], coords[0]]);
+                        marker = L.circleMarker([coords[1], coords[0]], cleanupMarkerOptions);
                     // bind a tooltip to the marker for site name
                     marker.bindTooltip("Site Name: " + feature.properties['SITE NAME'] + '<br>' + 'Site Address: ' + feature.properties.ADDRESS + '<br>' + 'City : ' + feature.properties.CITY + '<br>' + 'Cleanup Status: ' + feature.properties.STATUS);
                     // add the marker to the markerClusterGroup
