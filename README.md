@@ -10,6 +10,10 @@
 - Data points within a 30,000 foot radius of Richmond were downloaded via their web map as an Excel file. 
 - File was converted to csv with `gnumeric` on Linux and command used was `ssconvert geoTrackerSites.xls geoTrackerSites.csv` 
 
+### Richmond City Limit Data
+- Data was downloaded from [Contra Costa County GIS](https://gis.cccounty.us/Downloads/Planning/) website.
+- Shapefile was then converted to a GeoJSON projected in WGS84 with mapshaper.
+
 ## Node Modules Used
 - [Mapshaper](https://www.npmjs.com/package/mapshaper)
 - [csv2geojson](https://www.npmjs.com/package/csv2geojson)
