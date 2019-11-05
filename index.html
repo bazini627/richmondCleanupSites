@@ -84,6 +84,24 @@
                         color: 'white',
                         weight: .5,
                         opacity: .8
+                    }, 
+                    onEachFeature(feature, layer) {
+                        // mouse over a polygon and highlight
+                        layer.on('mouseover', function() {
+                            // Highlight the polygon
+                            this.setStyle({
+                                color: 'yellow',
+                                weight: 1
+                            });
+                        });
+
+                        // set back to base styling on mouseout
+                        layer.on('mouseout', function() {
+                            this.setStyle({
+                                color: 'white',
+                                weight: .5
+                            });
+                        });
                     }
                 }).addTo(map);
 
