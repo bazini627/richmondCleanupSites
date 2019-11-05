@@ -64,9 +64,10 @@
             // Use D3 fetch to request json files with async requests
             const nabeData = d3.json('data/richmondNabes.json');
             const cleanupSiteData = d3.json('data/activeCleanupSites.json');
+            const richmondCityLimitsData = d3.json('data/richmondCityLimits.json');
 
             // USe Promise to wait until data is all loaded
-            Promise.all([nabeData, cleanupSiteData]).then(loadMapData);
+            Promise.all([nabeData, cleanupSiteData, richmondCityLimitsData]).then(loadMapData);
 
             // Function to load map data that will get called when Promise is fulfilled and data is ready
             function loadMapData(data) {
@@ -74,14 +75,25 @@
                 // Pull out the separate data arrays and assign them to a variabel
                 const nabes = data[0];
                 const cleanupSites = data[1];
+                const richmond = data[2];
 
-                // Convert our neighborhood geojson to a Leaflet L.geoJSON() object and add it to the map
+                //Convert our neighborhood geojson to a Leaflet L.geoJSON() object and add it to the map
                 let nabeLayerGroup = L.geoJson(nabes, {
                     style: {
                         fill: false,
                         color: 'white',
+                        weight: .5,
+                        opacity: .8
+                    }
+                }).addTo(map);
+
+                let cityLimitLayerGroup = L.geoJson(richmond, {
+                    style: {
+                        fill: false,
+                        color: '#3232ff',
                         weight: 1,
-                        fillOpacity: .8
+                        dashArray: '5,10',
+                        opacity: .6
                     }
                 }).addTo(map);
 
