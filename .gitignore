@@ -63,3 +63,14 @@ typings/
 # vs code dot files
 .vscode/
 
+# Shapefile
+*.dbf
+*.fix
+*.prj
+*.qix
+*.shp
+*.shx
+*.sbx
+*.cpg
+*.sbn
+*.xml
