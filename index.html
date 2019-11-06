@@ -77,14 +77,13 @@
             top: 18px;
             right: 18px;
             padding: 6px, 12px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(83, 83, 83, 0.8);
         }
 
         #ui h3 {
             text-align: center;
             font-size: 16px;
             margin: 2px 12px 8px;
-            color: #777;
         }
 
         #ui ul {
@@ -94,6 +93,10 @@
 
         #ui li {
             margin-bottom: 6px;
+        }
+
+        #ui a {
+            text-decoration: none;
         }
     </style>
 </head>
@@ -185,7 +188,7 @@
 
             // Loop through the unique statuses and add them to the legend list
             for (let i = 0; i < uniqueStatus.length; i++) {
-                legendList.append('<li>' + uniqueStatus[i] + '</li>');
+                legendList.append('<li class="legend-item" id="status">' + '<a href="#" style="color:' + colors.Pastel[11][i] + ';">' + uniqueStatus[i]) + '</a></li>';
             }
 
             // Convert our neighborhood geojson to a Leaflet L.geoJSON() object and add it to the map
