@@ -72,7 +72,7 @@
 
         #ui {
             position: absolute;
-            font: 14px Arial, Helvetica, sans-serif;
+            font: 10px Arial, Helvetica, sans-serif;
             z-index: 1000;
             top: 18px;
             right: 18px;
@@ -85,6 +85,15 @@
             font-size: 16px;
             margin: 2px 12px 8px;
             color: #777;
+        }
+
+        #ui ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #ui li {
+            margin-bottom: 6px;
         }
     </style>
 </head>
@@ -162,18 +171,25 @@
             const colors = data[3];
 
             // get unique cleanup site statuses to add to legend
-            let cleanupSiteFeatures = cleanupSites.features;
+            const cleanupSiteFeatures = cleanupSites.features;
             let uniqueStatus = []
             cleanupSiteFeatures.forEach((x) => {
                 if (!cleanupSiteFeatures[x.properties.STATUS]) {
                     uniqueStatus.push(x.properties.STATUS);
                     cleanupSiteFeatures[x.properties.STATUS] = true;
                 }
-            }); 
-            console.log(uniqueStatus)
+            });
+
+            // store a reference to the legend list id that is in our ui div element
+            const legendList = $('#legend-list');
+
+            // Loop through the unique statuses and add them to the legend list
+            for (let i = 0; i < uniqueStatus.length; i++) {
+                legendList.append('<li>' + uniqueStatus[i] + '</li>');
+            }
 
             // Convert our neighborhood geojson to a Leaflet L.geoJSON() object and add it to the map
-            let nabeLayerGroup = L.geoJson(nabes, {
+            const nabeLayerGroup = L.geoJson(nabes, {
                 style: {
                     fillOpacity: 0,
                     color: 'white',
@@ -201,7 +217,7 @@
             }).addTo(map);
 
             // Convert our city limit geojson to a Leaflet L.geoJSON() object and add it to the map
-            let cityLimitLayerGroup = L.geoJson(richmond, {
+            const cityLimitLayerGroup = L.geoJson(richmond, {
                 style: {
                     fill: false,
                     color: '#3232ff',
@@ -241,7 +257,7 @@
                     fillOpacity: 0.8
                 };
                 // create a new leflet marker for each point
-                let coords = feature.geometry.coordinates,
+                const coords = feature.geometry.coordinates,
                     marker = L.circleMarker([coords[1], coords[0]], cleanupMarkerOptions);
                 // bind a tooltip to the marker for site name
                 marker.bindTooltip("Site Name: " + feature.properties['SITE NAME'] + '<br>' + 'Site Address: ' + feature.properties.ADDRESS + '<br>' + 'City : ' + feature.properties.CITY + '<br>' + 'Cleanup Status: ' + feature.properties.STATUS);
