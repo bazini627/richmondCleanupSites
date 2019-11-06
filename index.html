@@ -161,6 +161,17 @@
             const richmond = data[2];
             const colors = data[3];
 
+            // get unique cleanup site statuses to add to legend
+            let cleanupSiteFeatures = cleanupSites.features;
+            let uniqueStatus = []
+            cleanupSiteFeatures.forEach((x) => {
+                if (!cleanupSiteFeatures[x.properties.STATUS]) {
+                    uniqueStatus.push(x.properties.STATUS);
+                    cleanupSiteFeatures[x.properties.STATUS] = true;
+                }
+            }); 
+            console.log(uniqueStatus)
+
             // Convert our neighborhood geojson to a Leaflet L.geoJSON() object and add it to the map
             let nabeLayerGroup = L.geoJson(nabes, {
                 style: {
