@@ -19,6 +19,27 @@
             padding: 0;
         }
 
+        h1 {
+            margin: 18px 18px 12px;
+            color: whitesmoke;
+            font-weight: 400;
+            font-size: 2em;
+        }
+
+        h2 {
+            margin: 18px 18px 12px;
+            color: whitesmoke;
+            font-weight: 500;
+            font-size: 1.8em;
+        }
+
+        h3 {
+            margin: 36px 18px 12px;
+            color: whitesmoke;
+            font-weight: 500;
+            font-size: 1.2em;
+        }
+
         #map {
             position: absolute;
             width: 75%;
@@ -33,41 +54,19 @@
             top: 0;
             bottom: 0;
             width: 25%;
-            background: black;
-        }
-
-        h1 {
-            padding: 8px 25px 8px 15px;
-            margin: 0;
-            color: whitesmoke;
-            font-weight: 400;
-            font-size: 1.2em;
-            text-align: center;
-        }
-
-        h2 {
-            margin: 0;
-            padding: 8px 25px 8px 15px;
-            color: whitesmoke;
-            font-weight: 500;
-            font-size: 1.2em;
-            text-align: center;
-        }
-
-        h3 {
-            margin: 0;
-            padding: 8px 25px 8px 15px;
-            color: whitesmoke;
-            font-weight: 500;
-            font-size: 1.2em;
+            background: rgb(17, 17, 17);
         }
 
         #side-panel p {
             margin: 8px 0 12px;
             padding: 0 25px 0 15px;
             color: whitesmoke;
-            font-size: .9em;
+            font-size: 1em;
             line-height: 1.6em;
+        }
+
+        #side-panel a {
+            color: white;
         }
 
         #ui {
@@ -110,7 +109,7 @@
     <div id="map"></div>
     <div id="side-panel">
         <h1>Active Hazardous Waste Cleanup Sites</h1>
-        <h2> In Richmond, CA Neighborhoods</h2>
+        <h2>Richmond, CA Neighborhoods</h2>
         <h3>About The Map:</h3>
         <p>This map displays all active hazardous waste cleanup projects currently taking place within Richmond.
             Neighborhood boundaries are also displayed to possibly show which neighborhoods may be disproporitointely
@@ -137,7 +136,7 @@
     <!-- Latest JQuery Source -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
-        </script>
+    </script>
     <!-- Latest Leaflet MarkerCluster Source -->
     <script src="libs/Leaflet.markercluster/leaflet.markercluster.js"></script>
 
@@ -164,7 +163,7 @@
         const nabeData = d3.json('data/richmondNabes.json');
         const cleanupSiteData = d3.json('data/activeCleanupSites.json');
         const richmondCityLimitsData = d3.json('data/richmondCityLimits.json');
-        const colorsData = d3.json('/data/pastelColors.json');
+        const colorsData = d3.json('data/pastelColors.json');
 
         // USe Promise to wait until data is all loaded
         Promise.all([nabeData, cleanupSiteData, richmondCityLimitsData, colorsData]).then(loadMapData);
@@ -193,7 +192,8 @@
 
             // Loop through the unique statuses and add them to the legend list
             for (let i = 0; i < uniqueStatus.length; i++) {
-                legendList.append('<li class="legend-item" id="status">' + '<a href="#" style="color:' + colors.Pastel[11][i] + ';">' + uniqueStatus[i]) + '</a></li>';
+                legendList.append('<li class="legend-item" id="status">' + '<a href="#" style="color:' + colors.Pastel[
+                    11][i] + ';">' + uniqueStatus[i]) + '</a></li>';
             }
 
             // Convert our neighborhood geojson to a Leaflet L.geoJSON() object and add it to the map
@@ -268,7 +268,9 @@
                 const coords = feature.geometry.coordinates,
                     marker = L.circleMarker([coords[1], coords[0]], cleanupMarkerOptions);
                 // bind a tooltip to the marker for site name
-                marker.bindTooltip("Site Name: " + feature.properties['SITE NAME'] + '<br>' + 'Site Address: ' + feature.properties.ADDRESS + '<br>' + 'City : ' + feature.properties.CITY + '<br>' + 'Cleanup Status: ' + feature.properties.STATUS);
+                marker.bindTooltip("Site Name: " + feature.properties['SITE NAME'] + '<br>' + 'Site Address: ' +
+                    feature.properties.ADDRESS + '<br>' + 'City : ' + feature.properties.CITY + '<br>' +
+                    'Cleanup Status: ' + feature.properties.STATUS);
                 // add the marker to the markerClusterGroup
                 markers.addLayer(marker);
             });
